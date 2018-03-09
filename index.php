@@ -33,7 +33,7 @@
 		<th>Описание</th>
 		<th>Статус</th>
 		<th>Дата добавления</th>
-		<th colspan="2">Действия</th>
+		<th colspan="3">Действия</th>
 	</tr>
 <?php
 	if ($data) {
@@ -47,7 +47,7 @@
 				$is_done = '<span style="color: green;">Выполнено</span>';
 				$workflow = "<a href='reopen.php?id=$id'>Открыть заново</a>";
 			}
-			echo "<tr><td>$id</td><td>".$row['description']."</td><td>$is_done</td><td>".$row['date_added']."</td><td>$workflow</td><td><a href='delete.php?id=$id'>Удалить</a></td></tr>";
+			echo "<tr><td>$id</td><td>".$row['description']."</td><td>$is_done</td><td>".$row['date_added']."</td><td>$workflow</td><td><a href='edit.php?id=$id'>Редактировать</a></td><td><a href='delete.php?id=$id'>Удалить</a></td></tr>";
 		}
 	}
 	else {
