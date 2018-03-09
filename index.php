@@ -2,15 +2,35 @@
 
 	require_once './db-config.php';
 	
+	function clearInput($input) {
+		return htmlspecialchars(strip_tags($input));
+	}
+
 	try {
     	$pdo = new PDO("mysql:host=$dbHost;dbname=$dbName", $dbUser, $dbPass);
 	} catch (PDOException $e) {
     	echo 'Подключение не удалось: ' . $e->getMessage();
 	}
 
-	$sql = "SELECT * FROM `tasks`";	
-	$data = $pdo->query($sql);
+	$order = '';
 
+	if (isset($_GET['sort'])) {
+		$sort = clearInput($_GET['sort']);
+		switch ($sort) {
+			case 'desc':
+				$order = ' ORDER BY `description`';
+				break;
+			case 'status':
+				$order = ' ORDER BY `is_done`';
+				break;
+			case 'date':
+				$order = ' ORDER BY `date_added`';
+				break;
+		}
+	}
+
+	$sql = "SELECT * FROM `tasks`".$order;	
+	$data = $pdo->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -30,9 +50,9 @@
 <table>
 	<tr>
 		<th>id</th>
-		<th>Описание</th>
-		<th>Статус</th>
-		<th>Дата добавления</th>
+		<th><a href="index.php?sort=desc">Описание</a></th>
+		<th><a href="index.php?sort=status">Статус</a></th>
+		<th><a href="index.php?sort=date">Дата добавления</a></th>
 		<th colspan="3">Действия</th>
 	</tr>
 <?php
