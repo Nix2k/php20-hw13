@@ -29,7 +29,7 @@
 		}
 	}
 
-	$sql = "SELECT * FROM `tasks`".$order;	
+	$sql = "SELECT * FROM `tasks`".$order;
 	$data = $pdo->query($sql);
 ?>
 
